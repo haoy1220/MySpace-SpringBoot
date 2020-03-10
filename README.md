@@ -1,6 +1,43 @@
 # 毕业设计项目
 
-一、Spring Boot 推荐目录结构
+### Git操作流程
+
+1. git init
+2. git remote add origin https://github.com/haoy1220/MySpace.git
+3. git add .
+4. git commit -m "first commit"
+5. git push -u origin master
+6. git checkout -b dev1.0 origin/master
+7. git branch
+8. git push origin HEAD -u
+
+### 功能介绍
+
+#### 一、用户模块
+1. 登录；
+输入【邮箱】【密码】【页面验证码】进行登录；
+分别验证【邮箱是否存在】；
+【密码是否正确】；
+【验证码是否准确】。
+
+2. 注册；
+输入【昵称】【邮箱】【密码】【性别】进行注册；
+邮箱会收到验证码，需要填入【验证码】；
+密码需要【输入两次】；
+邮箱要检验是否已存在。
+
+3. 退出登录
+4. 忘记密码
+5. 
+
+#### 二、日志模块
+#### 三、备忘录模块
+#### 四、项目管理模块
+#### 五、搜索模块
+#### 六、后台管理员模块
+
+
+### Spring Boot 推荐目录结构
 
 （1）代码层的结构
 
