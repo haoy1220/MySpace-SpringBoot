@@ -1,7 +1,5 @@
 package cn.wzhihao.myspace.utils;
 
-import org.springframework.util.StringUtils;
-
 import java.security.MessageDigest;
 
 

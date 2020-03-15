@@ -1,58 +1,108 @@
 package cn.wzhihao.myspace.controller;
 
+
 import cn.wzhihao.myspace.common.Const;
-import cn.wzhihao.myspace.common.ServerResponse;
-import cn.wzhihao.myspace.domain.User;
+import cn.wzhihao.myspace.common.Result;
+import cn.wzhihao.myspace.entity.User;
 import cn.wzhihao.myspace.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
-@Controller
-@RequestMapping("/user")
+@RestController
 @CrossOrigin
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
     private IUserService iUserService;
 
-    //登录功能
+
+    //登录
+    @ResponseBody
     @PostMapping("/login")
-    @ResponseBody
-    public ServerResponse<User> login(@RequestParam("email") String email,
-                                      @RequestParam("password") String password, HttpSession session) {
-        ServerResponse<User> response = iUserService.login(email, password);
-        if (response.isSuccess()) {
-            session.setAttribute(Const.CURRENT_USER, response.getData());
+    public Result<User> login(@RequestParam(name = "email") String email,
+                              @RequestParam(name = "password") String password, HttpSession session) {
+        Result result = iUserService.login(email, password);
+        if (result.isSuccess()) {
+            session.setAttribute(Const.CURRENT_USER, result.getData());
         }
-        return response;
+        return result;
     }
 
-//    退出登录
+    //退出登录
+    @ResponseBody
     @GetMapping("/logout")
-    @ResponseBody
-    public ServerResponse<String> logout(HttpSession session) {
+    public Result logout(HttpSession session) {
         session.removeAttribute(Const.CURRENT_USER);
-        return ServerResponse.createBySuccess();
+        return Result.Success("退出成功");
     }
 
-//    注册功能
-    @PostMapping("/register")
+    //注册
     @ResponseBody
-    public ServerResponse<String> register(User user){
+    @PostMapping("/register")
+    public Result register(User user) {
         return iUserService.register(user);
     }
 
-//    校验邮箱冲突
-    @GetMapping("/checkValid")
+    //激活邮箱
+    @GetMapping("/active")
     @ResponseBody
-    public ServerResponse<String> checkValid(String str, String type) {
-        return iUserService.checkValid(str,type);
+    public Result activeEmail(@RequestParam(name = "id") String id,
+                              @RequestParam(name = "activeCode") String activeCode) {
+        return iUserService.activeCode(id, activeCode);
     }
 
-//    忘记密码功能
-//    查看个人信息
-//    修改个人信息
+    //校验邮箱
+    @PostMapping("/checkValid")
+    @ResponseBody
+    public Result checkValid(@RequestParam(name = "email") String email) {
+        return iUserService.checkValid(email);
+    }
+
+    //发送验证码
+    @PostMapping("/verifyEmail")
+    @ResponseBody
+    public Result verifyEmail(@RequestParam(name = "email") String email) {
+        return iUserService.verifyEmail(email);
+    }
+
+    //重置密码
+    @PostMapping("/resetPassword")
+    @ResponseBody
+    public Result resetPassword(@RequestParam(name = "email") String email,
+                                @RequestParam(name = "newPassword") String newPassword,
+                                @RequestParam(name = "verifyCode") String verifyCode) {
+        return iUserService.resetPassword(email, newPassword, verifyCode);
+    }
+
+    //获取个人信息
+    @ResponseBody
+    @GetMapping("/getUserInfo")
+    public Result<User> getUserInfo(HttpSession session) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return Result.Error(Const.StatusCode.NEED_LOGIN, "请登录后再试");
+        } else {
+            return iUserService.getUserInfo(user.getId());
+        }
+    }
+
+    //更新个人信息
+    @ResponseBody
+    @PostMapping("/updateUserInfo")
+    public Result<User> updateUserInfo(HttpSession session, User user) {
+        User currUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (currUser == null) {
+            return Result.Error(Const.StatusCode.NEED_LOGIN, "请登录再试");
+        } else {
+            user.setId(currUser.getId());
+            Result result = iUserService.updateUserInfo(user);
+            if (result.isSuccess()) {
+                session.setAttribute(Const.CURRENT_USER, result.getData());
+            }
+            return result;
+        }
+    }
 }
