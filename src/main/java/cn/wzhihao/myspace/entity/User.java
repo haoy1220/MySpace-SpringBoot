@@ -1,6 +1,7 @@
 package cn.wzhihao.myspace.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -8,6 +9,7 @@ import java.util.Date;
 
 @Table(name = "myspace_user")
 @Data
+@ToString
 public class User {
 
     //因为没有注明主键导致通用mapper更新操作找不到主键

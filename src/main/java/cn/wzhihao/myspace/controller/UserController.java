@@ -1,108 +1,88 @@
 package cn.wzhihao.myspace.controller;
 
 
+import cn.wzhihao.myspace.annotation.VerifyToken;
 import cn.wzhihao.myspace.common.Const;
 import cn.wzhihao.myspace.common.Result;
 import cn.wzhihao.myspace.entity.User;
 import cn.wzhihao.myspace.service.IUserService;
+import cn.wzhihao.myspace.utils.JwtTokenUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api/user")
 public class UserController {
 
+    private static Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private IUserService iUserService;
 
 
     //登录
-    @ResponseBody
     @PostMapping("/login")
-    public Result<User> login(@RequestParam(name = "email") String email,
-                              @RequestParam(name = "password") String password, HttpSession session) {
-        Result result = iUserService.login(email, password);
-        if (result.isSuccess()) {
-            session.setAttribute(Const.CURRENT_USER, result.getData());
-        }
-        return result;
+    public Result<Map<String, Object>> login(String email, String password) {
+        return iUserService.login(email, password);
     }
 
-    //退出登录
-    @ResponseBody
-    @GetMapping("/logout")
-    public Result logout(HttpSession session) {
-        session.removeAttribute(Const.CURRENT_USER);
-        return Result.Success("退出成功");
-    }
+//    //退出登录
+//    @VerifyToken
+//    @ResponseBody
+//    @GetMapping("/logout")
+//    public Result logout(HttpSession session) {
+//        session.removeAttribute(Const.CURRENT_USER);
+//        return Result.Success("退出成功");
+//    }
 
     //注册
-    @ResponseBody
-    @PostMapping("/register")
-    public Result register(User user) {
+    @PostMapping("/")
+    public Result<String> register(User user) {
         return iUserService.register(user);
     }
 
     //激活邮箱
-    @GetMapping("/active")
-    @ResponseBody
-    public Result activeEmail(@RequestParam(name = "id") String id,
-                              @RequestParam(name = "activeCode") String activeCode) {
+    @PostMapping("/active")
+    public Result<String> activeEmail(String id, String activeCode) {
         return iUserService.activeCode(id, activeCode);
     }
 
     //校验邮箱
     @PostMapping("/checkValid")
-    @ResponseBody
-    public Result checkValid(@RequestParam(name = "email") String email) {
+    public Result<String> checkValid(String email) {
         return iUserService.checkValid(email);
     }
 
     //发送验证码
     @PostMapping("/verifyEmail")
-    @ResponseBody
-    public Result verifyEmail(@RequestParam(name = "email") String email) {
+    public Result<String> verifyEmail(String email) {
         return iUserService.verifyEmail(email);
     }
 
     //重置密码
-    @PostMapping("/resetPassword")
-    @ResponseBody
-    public Result resetPassword(@RequestParam(name = "email") String email,
-                                @RequestParam(name = "newPassword") String newPassword,
-                                @RequestParam(name = "verifyCode") String verifyCode) {
+    @PutMapping("/resetPassword")
+    public Result<String> resetPassword(String email, String newPassword, String verifyCode) {
         return iUserService.resetPassword(email, newPassword, verifyCode);
     }
 
     //获取个人信息
-    @ResponseBody
-    @GetMapping("/getUserInfo")
-    public Result<User> getUserInfo(HttpSession session) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
-            return Result.Error(Const.StatusCode.NEED_LOGIN, "请登录后再试");
-        } else {
-            return iUserService.getUserInfo(user.getId());
-        }
+    @VerifyToken
+    @GetMapping("/{email}")
+    public Result<User> getUserInfo(@PathVariable(name = "email") String email) {
+        return iUserService.getUserInfo(email);
     }
 
     //更新个人信息
-    @ResponseBody
-    @PostMapping("/updateUserInfo")
-    public Result<User> updateUserInfo(HttpSession session, User user) {
-        User currUser = (User) session.getAttribute(Const.CURRENT_USER);
-        if (currUser == null) {
-            return Result.Error(Const.StatusCode.NEED_LOGIN, "请登录再试");
-        } else {
-            user.setId(currUser.getId());
-            Result result = iUserService.updateUserInfo(user);
-            if (result.isSuccess()) {
-                session.setAttribute(Const.CURRENT_USER, result.getData());
-            }
-            return result;
-        }
+    @VerifyToken
+    @PutMapping("/{email}")
+    public Result<User> updateUserInfo(@PathVariable(name = "email") String email, String nickname) {
+        return iUserService.updateUserInfo(email, nickname);
     }
 }

@@ -26,18 +26,17 @@ public class MD5Util {
      * 返回大写MD5
      *
      * @param origin
-     * @param charsetname
      * @return
      */
-    private static String MD5Encode(String origin, String charsetname) {
+    private static String MD5Encode(String origin) {
         String resultString = null;
         try {
             resultString = new String(origin);
             MessageDigest md = MessageDigest.getInstance("MD5");
-            if (charsetname == null || "".equals(charsetname))
+            if ("utf-8" == null || "".equals("utf-8"))
                 resultString = byteArrayToHexString(md.digest(resultString.getBytes()));
             else
-                resultString = byteArrayToHexString(md.digest(resultString.getBytes(charsetname)));
+                resultString = byteArrayToHexString(md.digest(resultString.getBytes("utf-8")));
         } catch (Exception exception) {
         }
         return resultString.toUpperCase();
@@ -45,7 +44,7 @@ public class MD5Util {
 
     public static String MD5EncodeUtf8(String origin) {
         origin = origin + PropertiesUtil.getProperty("password.salt", "");
-        return MD5Encode(origin, "utf-8");
+        return MD5Encode(origin);
     }
 
 

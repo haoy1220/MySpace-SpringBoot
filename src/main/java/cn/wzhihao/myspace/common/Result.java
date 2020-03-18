@@ -2,9 +2,9 @@ package cn.wzhihao.myspace.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 //保证序列化json的时候,如果是null的对象,key也会消失
 public class Result<T> {
@@ -12,6 +12,8 @@ public class Result<T> {
     private Integer code;
     private String msg;
     private T data;
+
+
 
     @JsonIgnore
     //使之不在json序列化结果当中

@@ -20,7 +20,7 @@ public class EmailUtil {
                 "如果您是【MySpace网站】的新用户，我们需要对您的地址有效性进行验证以避免垃圾邮件或地址被滥用。\n" +
                 "\n" +
                 "您只需点击下面的链接即可激活您的帐号：\n"+
-                url + "/api/user/active?id=" + id + "&activeCode=" + activeCode + "\n" +
+                url + "/active?id=" + id + "&activeCode=" + activeCode + "\n" +
                 "(如果上面不是链接形式，请将该地址手工粘贴到浏览器地址栏再访问)\n" +
                 "\n" +
                 "感谢您的访问，祝您使用愉快！\n" +

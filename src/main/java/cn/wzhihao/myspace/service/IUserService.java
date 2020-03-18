@@ -3,20 +3,22 @@ package cn.wzhihao.myspace.service;
 import cn.wzhihao.myspace.common.Result;
 import cn.wzhihao.myspace.entity.User;
 
+import java.util.Map;
+
 public interface IUserService {
-    Result<User> login(String email, String password);
+    Result<Map<String,Object>> login(String email, String password);
 
-    Result checkValid(String email);
+    Result<String> checkValid(String email);
 
-    Result register(User user);
+    Result<String> register(User user);
 
-    Result activeCode(String id, String activeCode);
+    Result<String> activeCode(String id, String activeCode);
 
-    Result verifyEmail(String email);
+    Result<String> verifyEmail(String email);
 
-    Result resetPassword(String email, String newPassword, String verifyCode);
+    Result<String> resetPassword(String email, String newPassword, String verifyCode);
 
-    Result<User> getUserInfo(String id);
+    Result<User> getUserInfo(String email);
 
-    Result<User> updateUserInfo(User user);
+    Result<User> updateUserInfo(String email, String nickname);
 }

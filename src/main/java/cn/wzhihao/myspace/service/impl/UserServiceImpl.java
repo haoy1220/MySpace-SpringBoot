@@ -6,21 +6,24 @@ import cn.wzhihao.myspace.dao.UserMapper;
 import cn.wzhihao.myspace.entity.User;
 import cn.wzhihao.myspace.service.IUserService;
 import cn.wzhihao.myspace.utils.EmailUtil;
+import cn.wzhihao.myspace.utils.JwtTokenUtil;
 import cn.wzhihao.myspace.utils.MD5Util;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @Transactional
 @Service("iUserService")
 public class UserServiceImpl implements IUserService {
+
+    private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private JavaMailSenderImpl javaMailSender;
@@ -31,55 +34,50 @@ public class UserServiceImpl implements IUserService {
 
     //登录
     @Override
-    public Result<User> login(String email, String password) {
-        //数据库是否存在
-        Result result = checkValid(email);
-        if (result.getCode() == Const.StatusCode.EMAIL_EXISTS) {
-            User user = new User();
-            user.setEmail(email);
-            user.setPassword(MD5Util.MD5EncodeUtf8(password));
-            user = userMapper.selectOne(user);
-            if (user == null) {
-                return Result.Error(Const.StatusCode.PWD_ERROR, "密码错误");
-            }
-
+    public Result<Map<String, Object>> login(String email, String password) {
+        //数据库是否存在该用户
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(MD5Util.MD5EncodeUtf8(password));
+        user = userMapper.selectOne(user);
+        if (user == null) {
+            return Result.Error(Const.StatusCode.PWD_ERROR, "邮箱不存在或密码错误");
+        } else {
             //todo 记录最后登录时间
-//
             user.setUpdateTime(Calendar.getInstance().getTimeInMillis() + "");
+            String token = new JwtTokenUtil().createToken(user);
             userMapper.updateByPrimaryKeySelective(user);
+
             //将密码置空再返回
             user.setPassword(StringUtils.EMPTY);
-            return Result.SuccessByData("登录成功", user);
-        } else if (result.getCode() == Const.StatusCode.EMAIL_NEED_ACTIVE) {
-            return result;
-        } else {
-            return Result.Error(Const.StatusCode.EMAIL_NOT_EXISTS, "邮箱不存在");
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("token", token);
+            dataMap.put("user", user);
+
+            return Result.SuccessByData("登录成功", dataMap);
         }
     }
 
 
     //校验邮箱
     @Override
-    public Result checkValid(String email) {
+    public Result<String> checkValid(String email) {
         User user = new User();
         user.setEmail(email);
         user = userMapper.selectOne(user);
-        if (user != null) {
-            if (user.getActiveState() == Const.Active.YES) {
-                return Result.Error(Const.StatusCode.EMAIL_EXISTS, "邮箱已存在，请重新输入");
-            } else {
-                return Result.Error(Const.StatusCode.EMAIL_NEED_ACTIVE, "邮箱尚未激活，请前往激活");
-            }
+        if (user != null && user.getActiveState() == Const.Active.YES) {
+            return Result.Error(Const.StatusCode.EMAIL_EXISTS, "邮箱已存在，请重新输入");
         }
         return Result.Success("邮箱可用");
     }
 
     //注册
     @Override
-    public Result register(User user) {
+    public Result<String> register(User user) {
 
         String id = UUID.randomUUID().toString();
         user.setId(id);
+//        logger.info(user.getPassword());
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
         user.setRole(Const.Role.ROLE_CUSTOMER);
         user.setActiveState(Const.Active.NO);
@@ -107,8 +105,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Result activeCode(String id, String activeCode) {
+    public Result<String> activeCode(String id, String activeCode) {
         User user = new User();
+//        logger.info(id + activeCode);
         user.setId(id);
         user.setActiveCode(activeCode);
         user = userMapper.selectOne(user);
@@ -134,9 +133,9 @@ public class UserServiceImpl implements IUserService {
 
     //发送验证码
     @Override
-    public Result verifyEmail(String email) {
+    public Result<String> verifyEmail(String email) {
         //前端
-        Result result = checkValid(email);
+        Result<String> result = checkValid(email);
         if (result.getCode() == Const.StatusCode.EMAIL_EXISTS) {
             User user = new User();
             user.setEmail(email);
@@ -162,7 +161,7 @@ public class UserServiceImpl implements IUserService {
 
     //重置密码
     @Override
-    public Result resetPassword(String email, String newPassword, String verifyCode) {
+    public Result<String> resetPassword(String email, String newPassword, String verifyCode) {
         User user = new User();
         user.setEmail(email);
         user.setVerifyCode(verifyCode);
@@ -188,26 +187,28 @@ public class UserServiceImpl implements IUserService {
 
     //获取个人信息
     @Override
-    public Result<User> getUserInfo(String id) {
+    public Result<User> getUserInfo(String email) {
         User user = new User();
-        user.setId(id);
+        user.setEmail(email);
         user = userMapper.selectOne(user);
-        if (user == null){
-            return Result.Error(Const.StatusCode.ID_NOT_EXISTS,"找不到当前用户信息");
+        if (user == null) {
+            return Result.Error(Const.StatusCode.ID_NOT_EXISTS, "找不到当前用户信息");
         }
         user.setPassword(StringUtils.EMPTY);
-        return Result.SuccessByData("成功返回",user);
+        return Result.SuccessByData("成功返回", user);
     }
 
     //更新个人信息
     @Override
-    public Result<User> updateUserInfo(User user) {
-        int res = userMapper.updateByPrimaryKeySelective(user);
-        if (res == 0){
-            return Result.Error(Const.StatusCode.SQL_ERROR,"更新失败");
-        }else {
-            user = userMapper.selectOne(user);
-            return Result.SuccessByData("更新个人信息成功",user);
+    public Result<User> updateUserInfo(String email,String nickname) {
+        User currUser= userMapper.selectOneByEmail(email);
+        currUser.setNickname(nickname);
+        int res = userMapper.updateByPrimaryKeySelective(currUser);
+        if (res == 0) {
+            return Result.Error(Const.StatusCode.SQL_ERROR, "更新失败");
+        } else {
+            currUser.setPassword(StringUtils.EMPTY);
+            return Result.SuccessByData("更新个人信息成功", currUser);
         }
     }
 

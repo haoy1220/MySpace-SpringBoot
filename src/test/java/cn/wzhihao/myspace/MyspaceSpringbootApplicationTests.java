@@ -1,24 +1,24 @@
 package cn.wzhihao.myspace;
 
+import lombok.val;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Calendar;
-import java.util.Date;
 
 @SpringBootTest
 class MyspaceSpringbootApplicationTests {
 
     @Test
     void contextLoads() {
-        Date date = new Date();
-        System.out.println(date);
+//        Date date = new Date();
+//        System.out.println(date);
+//
+//        Calendar calendar = Calendar.getInstance();
+//
+//        System.out.println(calendar.getTime());
+//        System.out.println(calendar.getTimeInMillis());
+//        System.out.println(calendar);
 
-        Calendar calendar = Calendar.getInstance();
-
-        System.out.println(calendar.getTime());
-        System.out.println(calendar.getTimeInMillis());
-        System.out.println(calendar);
     }
 
 }

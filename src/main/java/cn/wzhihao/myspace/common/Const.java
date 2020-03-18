@@ -4,8 +4,10 @@ package cn.wzhihao.myspace.common;
 public class Const {
 
     public static final String CURRENT_USER = "currentUser";
-    public static final String URL = "http://localhost:8001";
+    public static final String URL = "http://localhost";
     public static final String ADMIN_EMAIL = "zhihao.test@qq.com";
+    public static final String SAVE_IMG_PATH = "D:\\img";
+    public static final String IMG_URL = "image.wzhihao.cn";
 
 
     public interface Role {
@@ -42,6 +44,11 @@ public class Const {
     public interface Project {
         int UNFINISHED = 0;
         int FINISHED = 1;
+    }
+
+    public interface JwtConfig {
+        String SECRET = "DA56F8f468a4f6F4FA6";
+        long EXP_TIME = 86400;
     }
 
 }
