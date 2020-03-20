@@ -43,7 +43,7 @@ public class UserController {
 //    }
 
     //注册
-    @PostMapping("/")
+    @PostMapping()
     public Result<String> register(User user) {
         return iUserService.register(user);
     }

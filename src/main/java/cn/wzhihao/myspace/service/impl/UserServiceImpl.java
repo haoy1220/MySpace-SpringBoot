@@ -44,7 +44,7 @@ public class UserServiceImpl implements IUserService {
             return Result.Error(Const.StatusCode.PWD_ERROR, "邮箱不存在或密码错误");
         } else {
             //todo 记录最后登录时间
-            user.setUpdateTime(Calendar.getInstance().getTimeInMillis() + "");
+            user.setUpdateTime(Calendar.getInstance().getTimeInMillis());
             String token = new JwtTokenUtil().createToken(user);
             userMapper.updateByPrimaryKeySelective(user);
 
@@ -84,15 +84,13 @@ public class UserServiceImpl implements IUserService {
 
         long time = Calendar.getInstance().getTimeInMillis();
         //todo 记录创建时间
-        user.setCreateTime(time + "");
-        user.setUpdateTime(time + "");
+        user.setCreateTime(time);
+        user.setUpdateTime(time);
 
         String activeCode = MD5Util.MD5EncodeUtf8(user.getEmail() + user.getPassword() + user.getNickname() + user.getId() + time);
-        String expTime = (time + 1000 * 60 * 60 * 24) + "";
-//        String expTime = (time + 1000 * 24) + "";
 
         user.setActiveCode(activeCode);
-        user.setExpTime(expTime);
+        user.setExpTime(time + Const.ACTIVE_EXP_TIME);
 
         int res = userMapper.insertSelective(user);
         if (res == 0) {
@@ -116,14 +114,14 @@ public class UserServiceImpl implements IUserService {
             return Result.Error(Const.StatusCode.EMAIL_NOT_EXISTS, "邮箱已激活或激活码无效");
         } else {
             long currTime = Calendar.getInstance().getTimeInMillis();
-            if (currTime > Long.parseLong(user.getExpTime())) {
+            if (currTime > user.getExpTime()) {
                 //激活码过期
                 userMapper.deleteByPrimaryKey(user);
                 return Result.Error(Const.StatusCode.ACTIVE_EXP, "激活码已过期，请重新注册！！！");
             } else {
                 //激活码有效
                 user.setActiveState(Const.Active.YES);
-                user.setUpdateTime(currTime + "");
+                user.setUpdateTime(currTime);
                 userMapper.updateByPrimaryKey(user);
                 return Result.Success("激活成功，请前往登录！！！");
             }
@@ -144,10 +142,9 @@ public class UserServiceImpl implements IUserService {
 
             String verifyCode = String.valueOf(new Random().nextInt(899999) + 100000);
             long time = Calendar.getInstance().getTimeInMillis();
-            String expTime = (time + 1000 * 5 * 60) + "";
 
-            user.setExpTime(expTime);
-            user.setUpdateTime(time + "");
+            user.setExpTime(time + Const.VERIFY_EXP_TIME);
+            user.setUpdateTime(time);
             user.setVerifyCode(verifyCode);
 
             userMapper.updateByPrimaryKeySelective(user);
@@ -170,15 +167,15 @@ public class UserServiceImpl implements IUserService {
             return Result.Error(Const.StatusCode.VERIFY_ERROR, "邮箱或验证码错误");
         } else {
             long currTime = Calendar.getInstance().getTimeInMillis();
-            if (currTime > Long.parseLong(user.getExpTime())) {
-                user.setExpTime("0");
+            if (currTime > user.getExpTime()) {
+                user.setExpTime(0L);
                 user.setVerifyCode("");
                 userMapper.updateByPrimaryKeySelective(user);
                 return Result.Error(Const.StatusCode.VERIFY_ERROR, "验证码已过期");
             } else {
                 user.setPassword(MD5Util.MD5EncodeUtf8(newPassword));
                 user.setVerifyCode("");
-                user.setExpTime("0");
+                user.setExpTime(0L);
                 userMapper.updateByPrimaryKeySelective(user);
                 return Result.Success("密码重置成功，请重新登录！");
             }
@@ -200,8 +197,8 @@ public class UserServiceImpl implements IUserService {
 
     //更新个人信息
     @Override
-    public Result<User> updateUserInfo(String email,String nickname) {
-        User currUser= userMapper.selectOneByEmail(email);
+    public Result<User> updateUserInfo(String email, String nickname) {
+        User currUser = userMapper.selectOneByEmail(email);
         currUser.setNickname(nickname);
         int res = userMapper.updateByPrimaryKeySelective(currUser);
         if (res == 0) {

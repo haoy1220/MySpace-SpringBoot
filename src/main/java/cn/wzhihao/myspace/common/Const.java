@@ -8,6 +8,9 @@ public class Const {
     public static final String ADMIN_EMAIL = "zhihao.test@qq.com";
     public static final String SAVE_IMG_PATH = "D:\\img";
     public static final String IMG_URL = "image.wzhihao.cn";
+    public static final int MAX_BODY_CHAR_COUNT = 80;
+    public static final long ACTIVE_EXP_TIME = 1000 * 60 * 60 * 24;//激活码过期时间
+    public static final long VERIFY_EXP_TIME = 1000 * 60 * 5;//验证码过期时间
 
 
     public interface Role {

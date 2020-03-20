@@ -1,19 +1,22 @@
 package cn.wzhihao.myspace.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Table(name = "myspace_diary")
-
+@ToString
+@Entity
 public class Diary {
     @Id
-    private int id;
-    private String userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String userEmail;
     private String diaryTitle;
     private String diaryBody;
-    private String createTime;
-    private String updateTime;
+    private Long createTime;
+    private Long updateTime;
 }
