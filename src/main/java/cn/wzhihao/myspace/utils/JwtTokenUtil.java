@@ -14,7 +14,7 @@ import java.util.Date;
 public class JwtTokenUtil {
 
     //新建token
-    public String createToken(User user) {
+    public static String createToken(User user) {
         String token = "";
         token = JWT.create()
                 .withClaim("email", user.getEmail())//添加email
@@ -26,19 +26,19 @@ public class JwtTokenUtil {
     }
 
     //从请求获取token
-    public String getToken(HttpServletRequest request) {
+    public static String getToken(HttpServletRequest request) {
         return request.getHeader("token");
     }
 
 
     //从request获取邮箱
-    public String getEmailFromRequest(HttpServletRequest request) {
+    public static String getEmailFromRequest(HttpServletRequest request) {
         String token = getToken(request);
         return token == null ? null : getEmailFromToken(token);
     }
 
     //从token获取邮箱
-    public String getEmailFromToken(String token) {
+    public static String getEmailFromToken(String token) {
         return JWT.decode(token).getClaim("email").asString();
     }
 //
@@ -47,24 +47,24 @@ public class JwtTokenUtil {
 //    }
 
     //从request获取角色
-    public String getRoleFromRequest(HttpServletRequest request) {
+    public static String getRoleFromRequest(HttpServletRequest request) {
         String token = getToken(request);
         return token == null ? null : getRoleFromToken(token);
     }
 
     //从token获取角色
-    public String getRoleFromToken(String token) {
+    public static String getRoleFromToken(String token) {
         return JWT.decode(token).getClaim("role").asString();
     }
 
     //从request获取昵称
-    public String getNicknameFromRequest(HttpServletRequest request) {
+    public static String getNicknameFromRequest(HttpServletRequest request) {
         String token = getToken(request);
         return token == null ? null : getNicknameFromToken(token);
     }
 
     //从token获取昵称
-    public String getNicknameFromToken(String token) {
+    public static String getNicknameFromToken(String token) {
         return JWT.decode(token).getClaim("nickname").asString();
     }
 

@@ -2,6 +2,7 @@ package cn.wzhihao.myspace.service;
 
 import cn.wzhihao.myspace.common.Result;
 import cn.wzhihao.myspace.entity.User;
+import com.github.pagehelper.PageInfo;
 
 import java.util.Map;
 
@@ -21,4 +22,10 @@ public interface IUserService {
     Result<User> getUserInfo(String email);
 
     Result<User> updateUserInfo(String email, String nickname);
+
+    Result<PageInfo<User>> getUsers(int pageNum, int pageSize);
+
+    Result<String> deleteUser(String id);
+
+    Result<Integer> getUsersInfo();
 }

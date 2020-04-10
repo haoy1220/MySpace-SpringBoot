@@ -24,21 +24,17 @@ import java.lang.reflect.Method;
 
 @Component
 public class JwtFilter implements HandlerInterceptor {
-    public static Logger logger = LoggerFactory.getLogger(JwtFilter.class);
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     private UserMapper userMapper;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = jwtTokenUtil.getToken(request);
-        logger.info("我是拦截器" + token);
+        String token = JwtTokenUtil.getToken(request);
+//        logger.info("我是拦截器" + token);
         //如果不是映射到方法直接通过
         if (!(handler instanceof HandlerMethod)) {
-            logger.info("我进来了，不需要校验token哦");
+//            logger.info("我进来了，不需要校验token哦");
             return true;
         }
         HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -47,7 +43,7 @@ public class JwtFilter implements HandlerInterceptor {
         if (method.isAnnotationPresent(PassToken.class)) {
             PassToken passToken = method.getAnnotation(PassToken.class);
             if (passToken.required()) {
-                logger.info("我进来了，这个有标注不需要校验token哦");
+//                logger.info("我进来了，这个有标注不需要校验token哦");
                 return true;
             }
         }
@@ -55,18 +51,17 @@ public class JwtFilter implements HandlerInterceptor {
         if (method.isAnnotationPresent(VerifyToken.class)) {
             VerifyToken verifyToken = method.getAnnotation(VerifyToken.class);
             if (verifyToken.required()) {
-                logger.info("我进来了，需要校验token哦");
+//                logger.info("我进来了，需要校验token哦");
                 //执行认证
                 if (token == null) {
-                    logger.info("我进来了，你没有token哦");
+//                    logger.info("我进来了，你没有token哦");
                     throw new RuntimeException("无token，请重新登录");
                 }
                 //获取用户邮箱
                 String userEmail;
                 try {
 
-                    userEmail = jwtTokenUtil.getEmailFromToken(token);
-                    logger.info("我进来了，拿到你的邮箱" + userEmail);
+                    userEmail = JwtTokenUtil.getEmailFromToken(token);
 //                    logger.info(userEmail);
                 } catch (JWTDecodeException j) {
                     throw new RuntimeException("获取不到用户邮箱");
@@ -75,11 +70,7 @@ public class JwtFilter implements HandlerInterceptor {
                 User user = new User();
                 user.setEmail(userEmail);
                 user = userMapper.selectOne(user);
-                logger.info("我进来了，看看你是谁：" + user.toString());
-                if (user == null) {
-                    throw new RuntimeException("用户邮箱不存在，请重新登录");
-                }
-//                验证token
+                //                验证token
                 JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
                 try {
                     jwtVerifier.verify(token);

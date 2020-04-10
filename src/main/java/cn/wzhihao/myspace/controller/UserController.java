@@ -2,26 +2,21 @@ package cn.wzhihao.myspace.controller;
 
 
 import cn.wzhihao.myspace.annotation.VerifyToken;
-import cn.wzhihao.myspace.common.Const;
 import cn.wzhihao.myspace.common.Result;
 import cn.wzhihao.myspace.entity.User;
 import cn.wzhihao.myspace.service.IUserService;
-import cn.wzhihao.myspace.utils.JwtTokenUtil;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api/user")
 public class UserController {
-
-    private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private IUserService iUserService;
@@ -84,5 +79,23 @@ public class UserController {
     @PutMapping("/{email}")
     public Result<User> updateUserInfo(@PathVariable(name = "email") String email, String nickname) {
         return iUserService.updateUserInfo(email, nickname);
+    }
+
+    @VerifyToken
+    @GetMapping("/{pageNum}/{pageSize}")
+    public Result<PageInfo<User>> getUsers(@PathVariable int pageNum, @PathVariable int pageSize) {
+        return iUserService.getUsers(pageNum, pageSize);
+    }
+
+    @VerifyToken
+    @DeleteMapping("/{id}")
+    public Result<String> deleteUser(@PathVariable String id){
+        return iUserService.deleteUser(id);
+    }
+
+    @VerifyToken
+    @GetMapping("/boy")
+    public Result<Integer> getUsersInfo(){
+        return iUserService.getUsersInfo();
     }
 }

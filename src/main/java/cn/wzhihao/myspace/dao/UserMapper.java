@@ -8,4 +8,7 @@ public interface UserMapper extends Mapper<User> {
 
     @Select("select * from myspace_user where email=#{email}")
     User selectOneByEmail(String email);
+
+    @Select("SELECT SUM(CASE when sex=#{boy} then 1 else 0 end)/COUNT(*) FROM `myspace_user`")
+    double selectBoy(int boy);
 }

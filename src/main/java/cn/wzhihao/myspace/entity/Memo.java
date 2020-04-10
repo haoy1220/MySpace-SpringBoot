@@ -3,9 +3,7 @@ package cn.wzhihao.myspace.entity;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Table(name = "myspace_memo")
@@ -13,14 +11,17 @@ import javax.persistence.Table;
 @Entity
 public class Memo {
     @Id
-    private int id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)//在数据库交互的时候自动获取自增主键
+    private Integer id;
 
     private String userEmail;
-    private int memoType;
+    private Integer memoType;
     private String memoEmail;
-    private Long preTime;
+    private Integer preTime;
+    private Long preDate;
     private Long memoDate;
     private String memoContent;
     private Long createTime;
+    private Integer memoState;
 
 }

@@ -8,9 +8,9 @@ import cn.wzhihao.myspace.service.IUserService;
 import cn.wzhihao.myspace.utils.EmailUtil;
 import cn.wzhihao.myspace.utils.JwtTokenUtil;
 import cn.wzhihao.myspace.utils.MD5Util;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -22,8 +22,6 @@ import java.util.*;
 @Transactional
 @Service("iUserService")
 public class UserServiceImpl implements IUserService {
-
-    private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private JavaMailSenderImpl javaMailSender;
@@ -42,10 +40,12 @@ public class UserServiceImpl implements IUserService {
         user = userMapper.selectOne(user);
         if (user == null) {
             return Result.Error(Const.StatusCode.PWD_ERROR, "邮箱不存在或密码错误");
+        } else if (user.getActiveState() == Const.Active.NO) {
+            return Result.Error(Const.StatusCode.PWD_ERROR, "邮箱尚未激活，请前往邮箱激活");
         } else {
-            //todo 记录最后登录时间
+            //记录最后登录时间
             user.setUpdateTime(Calendar.getInstance().getTimeInMillis());
-            String token = new JwtTokenUtil().createToken(user);
+            String token = JwtTokenUtil.createToken(user);
             userMapper.updateByPrimaryKeySelective(user);
 
             //将密码置空再返回
@@ -83,7 +83,7 @@ public class UserServiceImpl implements IUserService {
         user.setActiveState(Const.Active.NO);
 
         long time = Calendar.getInstance().getTimeInMillis();
-        //todo 记录创建时间
+        //记录创建时间
         user.setCreateTime(time);
         user.setUpdateTime(time);
 
@@ -96,7 +96,7 @@ public class UserServiceImpl implements IUserService {
         if (res == 0) {
             return Result.Error(Const.StatusCode.REGISTER_ERROR, "注册失败");
         } else {
-            SimpleMailMessage simpleMailMessage = EmailUtil.sendActiveEmail(Const.URL, user.getId(), user.getActiveCode(), user.getEmail(), Const.ADMIN_EMAIL);
+            SimpleMailMessage simpleMailMessage = EmailUtil.sendActiveEmail(user.getId(), user.getActiveCode(), user.getEmail(), Const.ADMIN_EMAIL);
             javaMailSender.send(simpleMailMessage);
             return Result.Success("注册成功,请前往邮箱激活");
         }
@@ -115,11 +115,13 @@ public class UserServiceImpl implements IUserService {
         } else {
             long currTime = Calendar.getInstance().getTimeInMillis();
             if (currTime > user.getExpTime()) {
-                //激活码过期
+                //激活码过期，应该清除记录
                 userMapper.deleteByPrimaryKey(user);
                 return Result.Error(Const.StatusCode.ACTIVE_EXP, "激活码已过期，请重新注册！！！");
             } else {
-                //激活码有效
+                //激活码有效，也要清楚激活码，防止重复激活
+                user.setActiveCode("");
+                user.setExpTime(0L);
                 user.setActiveState(Const.Active.YES);
                 user.setUpdateTime(currTime);
                 userMapper.updateByPrimaryKey(user);
@@ -148,7 +150,7 @@ public class UserServiceImpl implements IUserService {
             user.setVerifyCode(verifyCode);
 
             userMapper.updateByPrimaryKeySelective(user);
-            SimpleMailMessage simpleMailMessage = EmailUtil.sendVerifyEmail(Const.URL, user.getVerifyCode(), user.getEmail(), Const.ADMIN_EMAIL);
+            SimpleMailMessage simpleMailMessage = EmailUtil.sendVerifyEmail(user.getVerifyCode(), user.getEmail(), Const.ADMIN_EMAIL);
             javaMailSender.send(simpleMailMessage);
             return Result.Success("验证码已发送至邮箱，请前往邮箱获取！");
         } else {
@@ -207,6 +209,27 @@ public class UserServiceImpl implements IUserService {
             currUser.setPassword(StringUtils.EMPTY);
             return Result.SuccessByData("更新个人信息成功", currUser);
         }
+    }
+
+    @Override
+    public Result<PageInfo<User>> getUsers(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> users = userMapper.selectAll();
+        PageInfo<User> pageInfo = new PageInfo<>(users);
+        return Result.SuccessByData("获取用户列表成功", pageInfo);
+    }
+
+    @Override
+    public Result<String> deleteUser(String id) {
+        userMapper.deleteByPrimaryKey(id);
+        return Result.Success("删除用户成功");
+    }
+
+    @Override
+    public Result<Integer> getUsersInfo() {
+        double percentage = userMapper.selectBoy(Const.Sex.BOY);
+        int per = (int) (percentage * 100);
+        return Result.SuccessByData("查询用户分布成功",per);
     }
 
 

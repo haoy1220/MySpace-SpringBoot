@@ -67,12 +67,15 @@ public class DiaryController {
         return iDiaryService.getDiaryById(id);
     }
 
+    //获取归档
     @VerifyToken
     @GetMapping("/archive")
     public Result<List<Map<String, Integer>>> getArchive() {
+
         return iDiaryService.getArchive();
     }
 
+    //获取搜索结果
     @VerifyToken
     @GetMapping("/{text}/{pageNum}/{pageSize}")
     public Result<PageInfo<Diary>> searchDiary(@PathVariable(value = "text") String text,
