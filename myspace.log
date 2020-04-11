@@ -2666,3 +2666,174 @@ Args:[1, 1, 4],
 ReturnValue: Result(code=200, msg=成功获取项目列表, data=PageInfo{pageNum=1, pageSize=4, size=0, startRow=0, endRow=0, total=0, pages=0, list=Page{count=true, pageNum=1, pageSize=4, startRow=0, endRow=4, total=0, pages=0, reasonable=false, pageSizeZero=false}[], prePage=0, nextPage=0, isFirstPage=true, isLastPage=true, hasPreviousPage=false, hasNextPage=false, navigatePages=8, navigateFirstPage=0, navigateLastPage=0, navigatepageNums=[]}),
 Time: 59ms,
 
+2020-04-11 15:44:06.314  INFO 34180 --- [restartedMain] c.w.m.MyspaceSpringbootApplication       : Starting MyspaceSpringbootApplication on DESKTOP-ADLOB7K with PID 34180 (C:\Users\hao\Documents\IdeaProjects\myspace-springboot\target\classes started by hao in C:\Users\hao\Documents\IdeaProjects\myspace-springboot)
+2020-04-11 15:44:06.321  INFO 34180 --- [restartedMain] c.w.m.MyspaceSpringbootApplication       : No active profile set, falling back to default profiles: default
+2020-04-11 15:44:06.413  INFO 34180 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-04-11 15:44:06.413  INFO 34180 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-04-11 15:44:09.348  WARN 34180 --- [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[cn.wzhihao.myspace]' package. Please check your configuration.
+2020-04-11 15:44:10.335  INFO 34180 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8002 (http)
+2020-04-11 15:44:10.348  INFO 34180 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-11 15:44:10.349  INFO 34180 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-04-11 15:44:10.564  INFO 34180 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-11 15:44:10.568  INFO 34180 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4154 ms
+2020-04-11 15:44:12.092  INFO 34180 --- [restartedMain] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2020-04-11 15:44:12.109  INFO 34180 --- [restartedMain] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2020-04-11 15:44:12.109  INFO 34180 --- [restartedMain] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.2 created.
+2020-04-11 15:44:12.111  INFO 34180 --- [restartedMain] org.quartz.simpl.RAMJobStore             : RAMJobStore initialized.
+2020-04-11 15:44:12.113  INFO 34180 --- [restartedMain] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2020-04-11 15:44:12.113  INFO 34180 --- [restartedMain] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2020-04-11 15:44:12.113  INFO 34180 --- [restartedMain] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.2
+2020-04-11 15:44:12.114  INFO 34180 --- [restartedMain] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@42eea38c
+2020-04-11 15:44:12.970  INFO 34180 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-11 15:44:13.159  WARN 34180 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2020-04-11 15:44:13.503  INFO 34180 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-04-11 15:44:13.565  INFO 34180 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-04-11 15:44:13.572  INFO 34180 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+2020-04-11 15:44:13.629  INFO 34180 --- [restartedMain] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2020-04-11 15:44:13.629  INFO 34180 --- [restartedMain] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2020-04-11 15:44:13.713  INFO 34180 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8002 (http) with context path ''
+2020-04-11 15:44:13.722  INFO 34180 --- [restartedMain] c.w.m.MyspaceSpringbootApplication       : Started MyspaceSpringbootApplication in 8.092 seconds (JVM running for 9.993)
+2020-04-11 15:44:14.250  INFO 34180 --- [RMI TCP Connection(3)-192.168.1.107] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-11 15:44:14.251  INFO 34180 --- [RMI TCP Connection(3)-192.168.1.107] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-11 15:44:14.270  INFO 34180 --- [RMI TCP Connection(3)-192.168.1.107] o.s.web.servlet.DispatcherServlet        : Completed initialization in 19 ms
+2020-04-11 15:44:18.223  INFO 34180 --- [RMI TCP Connection(4)-192.168.1.107] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2020-04-11 15:44:40.262  INFO 34180 --- [http-nio-8002-exec-1] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.UserController.login(String,String),
+Email: null,
+URL: /api/user/login,
+RequestMethod: POST,
+Args:[1103705469@qq.com, 123456789],
+ReturnValue: Result(code=200, msg=登录成功, data={user=User(id=c5edea3e-65cd-4481-8de8-df6ec167e6a2, nickname=hh大大大, password=, email=1103705469@qq.com, sex=1, role=0, activeState=1, verifyCode=969390, activeCode=B9EFFDB67BDD3E01135CFCC17D87AECE, expTime=1586346730282, createTime=1585310476960, updateTime=1586591079993), token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjowLCJuaWNrbmFtZSI6Imho5aSn5aSn5aSnIiwiZXhwIjoxNTg2NTkxMDgxLCJlbWFpbCI6IjExMDM3MDU0NjlAcXEuY29tIn0.mIY_ikkuthyYnCWucoV6VE4W3BcZWpshTKVgGENmqz8}),
+Time: 677ms,
+
+2020-04-11 15:44:44.466  WARN 34180 --- [http-nio-8002-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:44:44.539  WARN 34180 --- [http-nio-8002-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:47:12.128  INFO 34180 --- [http-nio-8002-exec-4] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.UserController.login(String,String),
+Email: null,
+URL: /api/user/login,
+RequestMethod: POST,
+Args:[1103705469@qq.com, 123456789],
+ReturnValue: Result(code=200, msg=登录成功, data={user=User(id=c5edea3e-65cd-4481-8de8-df6ec167e6a2, nickname=hh大大大, password=, email=1103705469@qq.com, sex=1, role=0, activeState=1, verifyCode=969390, activeCode=B9EFFDB67BDD3E01135CFCC17D87AECE, expTime=1586346730282, createTime=1585310476960, updateTime=1586591231903), token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjowLCJuaWNrbmFtZSI6Imho5aSn5aSn5aSnIiwiZXhwIjoxNTg2NTkxMjMzLCJlbWFpbCI6IjExMDM3MDU0NjlAcXEuY29tIn0.cE9r4sgCdBTLVbaeuv1YEYw6OUwMP-eFskLfcUbIRBo}),
+Time: 393ms,
+
+2020-04-11 15:47:15.590  WARN 34180 --- [http-nio-8002-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:47:15.666  WARN 34180 --- [http-nio-8002-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:48:11.436  WARN 34180 --- [http-nio-8002-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: 无token，请重新登录]
+2020-04-11 15:48:11.451  WARN 34180 --- [http-nio-8002-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: 无token，请重新登录]
+2020-04-11 15:49:33.810  WARN 34180 --- [http-nio-8002-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: 无token，请重新登录]
+2020-04-11 15:49:33.823  WARN 34180 --- [http-nio-8002-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: 无token，请重新登录]
+2020-04-11 15:49:45.342  INFO 34180 --- [http-nio-8002-exec-1] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.UserController.login(String,String),
+Email: null,
+URL: /api/user/login,
+RequestMethod: POST,
+Args:[1103705469@qq.com, 123456789],
+ReturnValue: Result(code=200, msg=登录成功, data={user=User(id=c5edea3e-65cd-4481-8de8-df6ec167e6a2, nickname=hh大大大, password=, email=1103705469@qq.com, sex=1, role=0, activeState=1, verifyCode=969390, activeCode=B9EFFDB67BDD3E01135CFCC17D87AECE, expTime=1586346730282, createTime=1585310476960, updateTime=1586591385121), token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjowLCJuaWNrbmFtZSI6Imho5aSn5aSn5aSnIiwiZXhwIjoxNTg2NTkxMzg3LCJlbWFpbCI6IjExMDM3MDU0NjlAcXEuY29tIn0.xn_YK1f7GsBVAv3lKrOo-LqeK_CKHvLMKHsL2NxuAqA}),
+Time: 390ms,
+
+2020-04-11 15:49:48.576  WARN 34180 --- [http-nio-8002-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:49:49.587  WARN 34180 --- [http-nio-8002-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:50:20.370  INFO 34180 --- [http-nio-8002-exec-4] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.UserController.login(String,String),
+Email: null,
+URL: /api/user/login,
+RequestMethod: POST,
+Args:[1103705469@qq.com, 123456789],
+ReturnValue: Result(code=200, msg=登录成功, data={user=User(id=c5edea3e-65cd-4481-8de8-df6ec167e6a2, nickname=hh大大大, password=, email=1103705469@qq.com, sex=1, role=0, activeState=1, verifyCode=969390, activeCode=B9EFFDB67BDD3E01135CFCC17D87AECE, expTime=1586346730282, createTime=1585310476960, updateTime=1586591420149), token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjowLCJuaWNrbmFtZSI6Imho5aSn5aSn5aSnIiwiZXhwIjoxNTg2NTkxNDIyLCJlbWFpbCI6IjExMDM3MDU0NjlAcXEuY29tIn0.9tA7mXuFL99n_brWvr8RuoBZev0QhsjtqQPwKdSucI8}),
+Time: 328ms,
+
+2020-04-11 15:50:23.233  INFO 34180 --- [http-nio-8002-exec-5] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.DiaryController.getArchive(),
+Email: 1103705469@qq.com,
+URL: /api/diary/archive,
+RequestMethod: GET,
+Args:[],
+ReturnValue: Result(code=200, msg=查询归档数据成功, data=[{months=2020年04月, count=1}, {months=2020年03月, count=8}]),
+Time: 268ms,
+
+2020-04-11 15:50:24.347  INFO 34180 --- [http-nio-8002-exec-6] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.DiaryController.getDiaryList(int,int),
+Email: 1103705469@qq.com,
+URL: /api/diary/list/1/5,
+RequestMethod: GET,
+Args:[1, 5],
+ReturnValue: Result(code=200, msg=获取分页列表成功, data=PageInfo{pageNum=1, pageSize=5, size=5, startRow=1, endRow=5, total=9, pages=2, list=Page{count=true, pageNum=1, pageSize=5, startRow=0, endRow=5, total=9, pages=2, reasonable=false, pageSizeZero=false}[Diary(id=30, userEmail=1103705469@qq.com, diaryTitle=测试啊, diaryBody=![timg.jfif](http://q7sxo8v6t.bkt.clouddn.com/69f92bda-dd43-4268-bd1a-ed5ebfa7be, createTime=1586588745807, updateTime=1586588920546), Diary(id=27, userEmail=1103705469@qq.com, diaryTitle=声明, diaryBody=### 本站尚处于开发阶段
+
+#### 待开发功能（尚未全部完成）
+
+- ~~备忘录的定时发送~~
+- 项目管理的界面优化，~~列和卡片的增删~~
+- 输入框的, createTime=1585192210752, updateTime=1585417925093), Diary(id=26, userEmail=1103705469@qq.com, diaryTitle=线上测试, diaryBody=### 3月25的一天, createTime=1585149105353, updateTime=1585149105353), Diary(id=19, userEmail=1103705469@qq.com, diaryTitle=test6, diaryBody=我放下妈妈的包，包里有书和其他不那么能让我记得的劳什物，书屋在商业街的尽头，屋子里的味道很好闻，我坐在妈妈的对面，又忘了书屋外的一切。
+
+　　妈妈在书里，我轻轻, createTime=1584684915141, updateTime=1584684915141), Diary(id=18, userEmail=1103705469@qq.com, diaryTitle=test5, diaryBody=我放下妈妈的包，包里有书和其他不那么能让我记得的劳什物，书屋在商业街的尽头，屋子里的味道很好闻，我坐在妈妈的对面，又忘了书屋外的一切。
+
+　　妈妈在书里，我轻轻, createTime=1584684903903, updateTime=1584684903903)], prePage=0, nextPage=2, isFirstPage=true, isLastPage=false, hasPreviousPage=false, hasNextPage=true, navigatePages=8, navigateFirstPage=1, navigateLastPage=2, navigatepageNums=[1, 2]}),
+Time: 1368ms,
+
+2020-04-11 15:50:29.417  WARN 34180 --- [http-nio-8002-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:50:29.417  WARN 34180 --- [http-nio-8002-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:50:29.421  WARN 34180 --- [http-nio-8002-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:51:22.396  INFO 34180 --- [http-nio-8002-exec-10] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.UserController.login(String,String),
+Email: null,
+URL: /api/user/login,
+RequestMethod: POST,
+Args:[1103705469@qq.com, 123456789],
+ReturnValue: Result(code=200, msg=登录成功, data={user=User(id=c5edea3e-65cd-4481-8de8-df6ec167e6a2, nickname=hh大大大, password=, email=1103705469@qq.com, sex=1, role=0, activeState=1, verifyCode=969390, activeCode=B9EFFDB67BDD3E01135CFCC17D87AECE, expTime=1586346730282, createTime=1585310476960, updateTime=1586591482169), token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjowLCJuaWNrbmFtZSI6Imho5aSn5aSn5aSnIiwiZXhwIjoxNTg2NTkxNDg0LCJlbWFpbCI6IjExMDM3MDU0NjlAcXEuY29tIn0.OptLtE0clZ-me-r7AFjVYRNuBa5a6l_6OY8E1LPVoek}),
+Time: 337ms,
+
+2020-04-11 15:51:26.297  WARN 34180 --- [http-nio-8002-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:51:26.298  WARN 34180 --- [http-nio-8002-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:55:13.458  INFO 34180 --- [http-nio-8002-exec-3] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.UserController.login(String,String),
+Email: null,
+URL: /api/user/login,
+RequestMethod: POST,
+Args:[1103705469@qq.com, 123456789],
+ReturnValue: Result(code=200, msg=登录成功, data={user=User(id=c5edea3e-65cd-4481-8de8-df6ec167e6a2, nickname=hh大大大, password=, email=1103705469@qq.com, sex=1, role=0, activeState=1, verifyCode=969390, activeCode=B9EFFDB67BDD3E01135CFCC17D87AECE, expTime=1586346730282, createTime=1585310476960, updateTime=1586591713230), token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjowLCJuaWNrbmFtZSI6Imho5aSn5aSn5aSnIiwiZXhwIjoxNTg2NTkxNzE1LCJlbWFpbCI6IjExMDM3MDU0NjlAcXEuY29tIn0.FG8Doy_HbRj-YF0hkc7Gl2KjRLZeYSalBTgvinDY_wk}),
+Time: 408ms,
+
+2020-04-11 15:55:17.707  WARN 34180 --- [http-nio-8002-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:55:17.777  WARN 34180 --- [http-nio-8002-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:55:17.780  WARN 34180 --- [http-nio-8002-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:55:25.280  WARN 34180 --- [http-nio-8002-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: 无token，请重新登录]
+2020-04-11 15:55:25.281  WARN 34180 --- [http-nio-8002-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: 无token，请重新登录]
+2020-04-11 15:55:29.601  WARN 34180 --- [http-nio-8002-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: 无token，请重新登录]
+2020-04-11 15:55:29.602  WARN 34180 --- [http-nio-8002-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: 无token，请重新登录]
+2020-04-11 15:57:19.586  WARN 34180 --- [http-nio-8002-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: 无token，请重新登录]
+2020-04-11 15:57:19.591  WARN 34180 --- [http-nio-8002-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: 无token，请重新登录]
+2020-04-11 15:57:31.357  INFO 34180 --- [http-nio-8002-exec-3] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.UserController.login(String,String),
+Email: null,
+URL: /api/user/login,
+RequestMethod: POST,
+Args:[1103705469@qq.com, 123456789+],
+ReturnValue: Result(code=201, msg=邮箱不存在或密码错误, data=null),
+Time: 272ms,
+
+2020-04-11 15:57:39.803  INFO 34180 --- [http-nio-8002-exec-4] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.UserController.login(String,String),
+Email: null,
+URL: /api/user/login,
+RequestMethod: POST,
+Args:[1103705469@qq.com, 123456789],
+ReturnValue: Result(code=200, msg=登录成功, data={user=User(id=c5edea3e-65cd-4481-8de8-df6ec167e6a2, nickname=hh大大大, password=, email=1103705469@qq.com, sex=1, role=0, activeState=1, verifyCode=969390, activeCode=B9EFFDB67BDD3E01135CFCC17D87AECE, expTime=1586346730282, createTime=1585310476960, updateTime=1586591859577), token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjowLCJuaWNrbmFtZSI6Imho5aSn5aSn5aSnIiwiZXhwIjoxNTg2NTkxODYxLCJlbWFpbCI6IjExMDM3MDU0NjlAcXEuY29tIn0.b55McjP_1Q13afDlBWuOaMSTa7HAB487QitVf6GGbRk}),
+Time: 339ms,
+
+2020-04-11 15:57:42.050  INFO 34180 --- [http-nio-8002-exec-5] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.ProjectController.getProjectList(int,int,int),
+Email: 1103705469@qq.com,
+URL: /api/project/0/1/4,
+RequestMethod: GET,
+Args:[0, 1, 4],
+ReturnValue: Result(code=200, msg=成功获取项目列表, data=PageInfo{pageNum=1, pageSize=4, size=4, startRow=1, endRow=4, total=4, pages=1, list=Page{count=true, pageNum=1, pageSize=4, startRow=0, endRow=4, total=4, pages=1, reasonable=false, pageSizeZero=false}[Project(id=77, userEmail=1103705469@qq.com, projectBody=ces, projectDesc=, projectState=0, createTime=1586591827856, updateTime=1586591827856), Project(id=75, userEmail=1103705469@qq.com, projectBody=测试33, projectDesc=, projectState=0, createTime=1586535546735, updateTime=1586589386165), Project(id=70, userEmail=1103705469@qq.com, projectBody=测试项目, projectDesc=功能几乎已全部实现, projectState=0, createTime=1585416047320, updateTime=1586589506630), Project(id=69, userEmail=1103705469@qq.com, projectBody=测试项目, projectDesc=开发测试, projectState=0, createTime=1585415726868, updateTime=1585415962982)], prePage=0, nextPage=0, isFirstPage=true, isLastPage=true, hasPreviousPage=false, hasNextPage=false, navigatePages=8, navigateFirstPage=1, navigateLastPage=1, navigatepageNums=[1]}),
+Time: 119ms,
+
+2020-04-11 15:57:42.092  INFO 34180 --- [http-nio-8002-exec-6] cn.wzhihao.myspace.log.ControllerLog     : 执行方法：Result cn.wzhihao.myspace.controller.ProjectController.getProjectList(int,int,int),
+Email: 1103705469@qq.com,
+URL: /api/project/1/1/4,
+RequestMethod: GET,
+Args:[1, 1, 4],
+ReturnValue: Result(code=200, msg=成功获取项目列表, data=PageInfo{pageNum=1, pageSize=4, size=1, startRow=1, endRow=1, total=1, pages=1, list=Page{count=true, pageNum=1, pageSize=4, startRow=0, endRow=4, total=1, pages=1, reasonable=false, pageSizeZero=false}[Project(id=71, userEmail=1103705469@qq.com, projectBody=结束项目测试, projectDesc=结束项目测试, projectState=1, createTime=1585416063692, updateTime=1585416088799)], prePage=0, nextPage=0, isFirstPage=true, isLastPage=true, hasPreviousPage=false, hasNextPage=false, navigatePages=8, navigateFirstPage=1, navigateLastPage=1, navigatepageNums=[1]}),
+Time: 110ms,
+
+2020-04-11 15:57:42.964  WARN 34180 --- [http-nio-8002-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:57:42.968  WARN 34180 --- [http-nio-8002-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
+2020-04-11 15:57:43.973  WARN 34180 --- [http-nio-8002-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [cn.wzhihao.myspace.exception.TokenException: token验证不通过]
