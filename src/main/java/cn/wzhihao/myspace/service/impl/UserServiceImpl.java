@@ -39,9 +39,9 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(MD5Util.MD5EncodeUtf8(password));
         user = userMapper.selectOne(user);
         if (user == null) {
-            return Result.Error(Const.StatusCode.PWD_ERROR, "邮箱不存在或密码错误");
+            return Result.Error(Const.StatusCode.ERROR, "邮箱不存在或密码错误");
         } else if (user.getActiveState() == Const.Active.NO) {
-            return Result.Error(Const.StatusCode.PWD_ERROR, "邮箱尚未激活，请前往邮箱激活");
+            return Result.Error(Const.StatusCode.ERROR, "邮箱尚未激活，请前往邮箱激活");
         } else {
             //记录最后登录时间
             user.setUpdateTime(Calendar.getInstance().getTimeInMillis());
@@ -66,7 +66,7 @@ public class UserServiceImpl implements IUserService {
         user.setEmail(email);
         user = userMapper.selectOne(user);
         if (user != null && user.getActiveState() == Const.Active.YES) {
-            return Result.Error(Const.StatusCode.EMAIL_EXISTS, "邮箱已存在，请重新输入");
+            return Result.Error(Const.StatusCode.ERROR, "邮箱已存在，请重新输入");
         }
         return Result.Success("邮箱可用");
     }
@@ -94,7 +94,7 @@ public class UserServiceImpl implements IUserService {
 
         int res = userMapper.insertSelective(user);
         if (res == 0) {
-            return Result.Error(Const.StatusCode.REGISTER_ERROR, "注册失败");
+            return Result.Error(Const.StatusCode.ERROR, "注册失败");
         } else {
             SimpleMailMessage simpleMailMessage = EmailUtil.sendActiveEmail(user.getId(), user.getActiveCode(), user.getEmail(), Const.ADMIN_EMAIL);
             javaMailSender.send(simpleMailMessage);
@@ -111,13 +111,13 @@ public class UserServiceImpl implements IUserService {
         user = userMapper.selectOne(user);
         if (user == null || user.getActiveState() == Const.Active.YES) {
             //用户或激活码不存在
-            return Result.Error(Const.StatusCode.EMAIL_NOT_EXISTS, "邮箱已激活或激活码无效");
+            return Result.Error(Const.StatusCode.ERROR, "邮箱已激活或激活码无效");
         } else {
             long currTime = Calendar.getInstance().getTimeInMillis();
             if (currTime > user.getExpTime()) {
                 //激活码过期，应该清除记录
                 userMapper.deleteByPrimaryKey(user);
-                return Result.Error(Const.StatusCode.ACTIVE_EXP, "激活码已过期，请重新注册！！！");
+                return Result.Error(Const.StatusCode.ERROR, "激活码已过期，请重新注册！！！");
             } else {
                 //激活码有效，也要清楚激活码，防止重复激活
                 user.setActiveCode("");
@@ -136,7 +136,7 @@ public class UserServiceImpl implements IUserService {
     public Result<String> verifyEmail(String email) {
         //前端
         Result<String> result = checkValid(email);
-        if (result.getCode() == Const.StatusCode.EMAIL_EXISTS) {
+        if (result.getCode() == Const.StatusCode.ERROR) {
             User user = new User();
             user.setEmail(email);
             user = userMapper.selectOne(user);
@@ -154,7 +154,7 @@ public class UserServiceImpl implements IUserService {
             javaMailSender.send(simpleMailMessage);
             return Result.Success("验证码已发送至邮箱，请前往邮箱获取！");
         } else {
-            return Result.Error(Const.StatusCode.EMAIL_NOT_EXISTS, "邮箱不存在或未激活");
+            return Result.Error(Const.StatusCode.ERROR, "邮箱不存在或未激活");
         }
     }
 
@@ -166,14 +166,14 @@ public class UserServiceImpl implements IUserService {
         user.setVerifyCode(verifyCode);
         user = userMapper.selectOne(user);
         if (user == null) {
-            return Result.Error(Const.StatusCode.VERIFY_ERROR, "邮箱或验证码错误");
+            return Result.Error(Const.StatusCode.ERROR, "邮箱或验证码错误");
         } else {
             long currTime = Calendar.getInstance().getTimeInMillis();
             if (currTime > user.getExpTime()) {
                 user.setExpTime(0L);
                 user.setVerifyCode("");
                 userMapper.updateByPrimaryKeySelective(user);
-                return Result.Error(Const.StatusCode.VERIFY_ERROR, "验证码已过期");
+                return Result.Error(Const.StatusCode.ERROR, "验证码已过期");
             } else {
                 user.setPassword(MD5Util.MD5EncodeUtf8(newPassword));
                 user.setVerifyCode("");
@@ -191,7 +191,7 @@ public class UserServiceImpl implements IUserService {
         user.setEmail(email);
         user = userMapper.selectOne(user);
         if (user == null) {
-            return Result.Error(Const.StatusCode.ID_NOT_EXISTS, "找不到当前用户信息");
+            return Result.Error(Const.StatusCode.ERROR, "找不到当前用户信息");
         }
         user.setPassword(StringUtils.EMPTY);
         return Result.SuccessByData("成功返回", user);
@@ -204,7 +204,7 @@ public class UserServiceImpl implements IUserService {
         currUser.setNickname(nickname);
         int res = userMapper.updateByPrimaryKeySelective(currUser);
         if (res == 0) {
-            return Result.Error(Const.StatusCode.SQL_ERROR, "更新失败");
+            return Result.Error(Const.StatusCode.ERROR, "更新失败");
         } else {
             currUser.setPassword(StringUtils.EMPTY);
             return Result.SuccessByData("更新个人信息成功", currUser);

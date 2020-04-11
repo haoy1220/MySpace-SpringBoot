@@ -27,7 +27,7 @@ public class DiaryController {
     @PostMapping("/uploadImg")
     public Result<String> uploadImg(MultipartFile file) throws IOException {
         if (file == null) {
-            return Result.Error(Const.StatusCode.PARAM_ERROR, "参数错误");
+            return Result.Error(Const.StatusCode.ERROR, "参数错误");
         }
         return iDiaryService.uploadImg(file);
     }

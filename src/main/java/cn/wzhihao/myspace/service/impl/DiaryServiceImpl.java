@@ -66,7 +66,7 @@ public class DiaryServiceImpl implements IDiaryService {
         if (res > 0) {
             return Result.Success("保存日记成功");
         } else {
-            return Result.Error(Const.StatusCode.SQL_ERROR, "数据库插入失败");
+            return Result.Error(Const.StatusCode.ERROR, "数据库插入失败");
         }
     }
 
@@ -99,7 +99,7 @@ public class DiaryServiceImpl implements IDiaryService {
         if (res > 0) {
             return Result.Success("删除成功");
         } else {
-            return Result.Error(Const.StatusCode.SQL_ERROR, "权限不足或数据可能不存在");
+            return Result.Error(Const.StatusCode.ERROR, "权限不足或数据可能不存在");
         }
     }
 
@@ -116,7 +116,7 @@ public class DiaryServiceImpl implements IDiaryService {
         if (res > 0) {
             return Result.Success("修改成功");
         } else {
-            return Result.Error(Const.StatusCode.SQL_ERROR, "修改失败");
+            return Result.Error(Const.StatusCode.ERROR, "修改失败");
         }
     }
 
@@ -129,7 +129,7 @@ public class DiaryServiceImpl implements IDiaryService {
         if (diary != null) {
             return Result.SuccessByData("获取日记成功", diary);
         } else {
-            return Result.Error(Const.StatusCode.SQL_ERROR, "权限不足或数据不存在");
+            return Result.Error(Const.StatusCode.ERROR, "权限不足或数据不存在");
         }
     }
 
@@ -155,7 +155,7 @@ public class DiaryServiceImpl implements IDiaryService {
         if (pageInfo.getTotal() != 0) {
             return Result.SuccessByData("搜索成功", pageInfo);
         } else {
-            return Result.Error(Const.StatusCode.SQL_ERROR, "没搜索到内容");
+            return Result.Error(Const.StatusCode.ERROR, "没搜索到内容");
         }
     }
 

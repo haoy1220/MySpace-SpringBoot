@@ -129,7 +129,7 @@ public class ProjectServiceImpl implements IProjectService {
         project.setUserEmail(JwtTokenUtil.getEmailFromRequest(request));
         project=projectMapper.selectOne(project);
         if (project==null){
-            return Result.Error(Const.StatusCode.SQL_ERROR,"数据不存在或权限不足");
+            return Result.Error(Const.StatusCode.ERROR,"数据不存在或权限不足");
         }else {
             project.setProjectState(Const.Project.FINISHED);
             project.setUpdateTime(Calendar.getInstance().getTimeInMillis());
@@ -153,7 +153,7 @@ public class ProjectServiceImpl implements IProjectService {
         if (res > 0) {
             return Result.Success("新建项目成功");
         } else {
-            return Result.Error(Const.StatusCode.SQL_ERROR, "插入数据库失败");
+            return Result.Error(Const.StatusCode.ERROR, "插入数据库失败");
         }
     }
 

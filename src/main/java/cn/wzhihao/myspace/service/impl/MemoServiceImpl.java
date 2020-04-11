@@ -65,7 +65,7 @@ public class MemoServiceImpl implements IMemoService {
         if (res > 0) {
             return Result.Success("保存成功");
         } else {
-            return Result.Error(Const.StatusCode.SQL_ERROR, "权限不足或数据库出错了");
+            return Result.Error(Const.StatusCode.ERROR, "权限不足或数据库出错了");
         }
     }
 
@@ -81,10 +81,10 @@ public class MemoServiceImpl implements IMemoService {
             if (res == 1) {
                 return Result.Success("删除成功");
             } else {
-                return Result.Error(Const.StatusCode.SQL_ERROR, "数据出错");
+                return Result.Error(Const.StatusCode.ERROR, "数据出错");
             }
         } else {
-            return Result.Error(Const.StatusCode.NOT_PERMISSION_ERROR, "没有权限");
+            return Result.Error(Const.StatusCode.ERROR, "没有权限");
         }
     }
 }

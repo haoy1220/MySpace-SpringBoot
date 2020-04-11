@@ -4,6 +4,7 @@ import cn.wzhihao.myspace.annotation.PassToken;
 import cn.wzhihao.myspace.annotation.VerifyToken;
 import cn.wzhihao.myspace.dao.UserMapper;
 import cn.wzhihao.myspace.entity.User;
+import cn.wzhihao.myspace.exception.TokenException;
 import cn.wzhihao.myspace.utils.JwtTokenUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -31,10 +32,8 @@ public class JwtFilter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = JwtTokenUtil.getToken(request);
-//        logger.info("我是拦截器" + token);
         //如果不是映射到方法直接通过
         if (!(handler instanceof HandlerMethod)) {
-//            logger.info("我进来了，不需要校验token哦");
             return true;
         }
         HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -43,7 +42,6 @@ public class JwtFilter implements HandlerInterceptor {
         if (method.isAnnotationPresent(PassToken.class)) {
             PassToken passToken = method.getAnnotation(PassToken.class);
             if (passToken.required()) {
-//                logger.info("我进来了，这个有标注不需要校验token哦");
                 return true;
             }
         }
@@ -51,31 +49,27 @@ public class JwtFilter implements HandlerInterceptor {
         if (method.isAnnotationPresent(VerifyToken.class)) {
             VerifyToken verifyToken = method.getAnnotation(VerifyToken.class);
             if (verifyToken.required()) {
-//                logger.info("我进来了，需要校验token哦");
                 //执行认证
                 if (token == null) {
-//                    logger.info("我进来了，你没有token哦");
-                    throw new RuntimeException("无token，请重新登录");
+                    throw new TokenException("无token，请重新登录");
                 }
                 //获取用户邮箱
                 String userEmail;
                 try {
-
                     userEmail = JwtTokenUtil.getEmailFromToken(token);
-//                    logger.info(userEmail);
                 } catch (JWTDecodeException j) {
-                    throw new RuntimeException("获取不到用户邮箱");
+                    throw new TokenException("token获取不到用户邮箱");
                 }
 
                 User user = new User();
                 user.setEmail(userEmail);
                 user = userMapper.selectOne(user);
-                //                验证token
+                //验证token
                 JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
                 try {
                     jwtVerifier.verify(token);
                 } catch (JWTVerificationException j) {
-                    throw new RuntimeException("token验证不通过");
+                    throw new TokenException("token验证不通过");
                 }
                 return true;
             }
