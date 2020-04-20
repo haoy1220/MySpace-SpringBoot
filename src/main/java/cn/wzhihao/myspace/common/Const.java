@@ -17,7 +17,7 @@ public class Const {
         String accessKey = "3DDKpgY99dNDQ3QeblHsquW57k3j1_Lxwedg9A6o";
         String secretKey = "w52X3NqgdhHreq8x-mjcX9ege05jUcyXiu9HFpOP";
         String bucket = "myspace--project";
-        String domain = "http://q7sxo8v6t.bkt.clouddn.com/";
+        String domain = "http://qiniu.wzhihao.cn/";
 
     }
 

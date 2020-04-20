@@ -77,7 +77,6 @@ public class UserServiceImpl implements IUserService {
 
         String id = UUID.randomUUID().toString();
         user.setId(id);
-//        logger.info(user.getPassword());
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
         user.setRole(Const.Role.ROLE_CUSTOMER);
         user.setActiveState(Const.Active.NO);
