@@ -9,8 +9,6 @@ import cn.wzhihao.myspace.utils.JwtTokenUtil;
 import cn.wzhihao.myspace.utils.QiNiuUploadUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,11 +41,11 @@ public class DiaryServiceImpl implements IDiaryService {
         String fileExtName = fileName.substring(fileName.lastIndexOf(".") + 1);
         //保存的名字
         String fileSaveName = UUID.randomUUID().toString() + "." + fileExtName;
-//        logger.info("开始上传文件，上传的文件名：{}，保存的文件名：{}", fileName, fileSaveName);
+        // logger.info("开始上传文件，上传的文件名：{}，保存的文件名：{}", fileName, fileSaveName);
 
         String savePath = QiNiuUploadUtil.uploadImg(file,fileSaveName);
-//        File localFile = new File(Const.SAVE_IMG_PATH + "/" + fileSaveName);
-//        file.transferTo(localFile);
+        // File localFile = new File(Const.SAVE_IMG_PATH + "/" + fileSaveName);
+        // file.transferTo(localFile);
         return Result.SuccessByData("图片上传成功", savePath);
     }
 
@@ -73,7 +71,6 @@ public class DiaryServiceImpl implements IDiaryService {
     //获取分页日记服务
     @Override
     public Result<PageInfo<Diary>> getDiaryList(int pageNum, int pageSize) {
-//        logger.info(pageNum + "" + pageSize + "");
         //startPage
         PageHelper.startPage(pageNum, pageSize);
         List<Diary> diaryList = diaryMapper.selectByEmail(JwtTokenUtil.getEmailFromRequest(request));

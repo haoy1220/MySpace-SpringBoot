@@ -4,10 +4,7 @@ import lombok.var;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Hashtable;
+import java.util.*;
 
 @SpringBootTest
 class MyspaceSpringbootApplicationTests {
@@ -20,6 +17,9 @@ class MyspaceSpringbootApplicationTests {
         System.out.println(calendar.get(Calendar.YEAR));
         Date date = new Date();
         System.out.println(date.getMonth());
+        LinkedList linkedList = new LinkedList();
+        HashSet set = new HashSet();
+
 
     }
 

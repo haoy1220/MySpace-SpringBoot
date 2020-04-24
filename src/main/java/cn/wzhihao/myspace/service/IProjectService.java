@@ -16,8 +16,6 @@ public interface IProjectService {
 
     Result<String> newProject(String projectBody, String projectDesc);
 
-//    Result<String> updateProject(int id, ArrayList<CardVo> cardVoList);
-
     Result<String> updateDetail(int id, String detail);
 
     Result<String> updateProject(int id, String projectBody, String projectDesc);

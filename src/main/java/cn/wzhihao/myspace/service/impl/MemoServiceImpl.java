@@ -13,8 +13,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +22,6 @@ import java.util.List;
 
 @Service("iMemoService")
 public class MemoServiceImpl implements IMemoService {
-
-    private Logger logger = LoggerFactory.getLogger(MemoServiceImpl.class);
 
     @Autowired
     private MemoMapper memoMapper;
@@ -41,7 +37,6 @@ public class MemoServiceImpl implements IMemoService {
     public Result<PageInfo<Memo>> getMemoListByType(int type, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Memo> memoList = memoMapper.selectByTypeAndEmail(type, JwtTokenUtil.getEmailFromRequest(request));
-        logger.info(memoList.toString());
         PageInfo<Memo> pageInfo = new PageInfo<>(memoList);
         return Result.SuccessByData("获取成功", pageInfo);
     }

@@ -104,7 +104,6 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Result<String> activeCode(String id, String activeCode) {
         User user = new User();
-//        logger.info(id + activeCode);
         user.setId(id);
         user.setActiveCode(activeCode);
         user = userMapper.selectOne(user);

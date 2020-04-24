@@ -44,7 +44,7 @@ public class DateUtil {
     }
 
     /***
-     * convert Date to cron ,eg.  "0 07 10 15 1 ? 2016"
+     * 转化定时时间格式
      * @param date  : 时间点
      * @return
      */

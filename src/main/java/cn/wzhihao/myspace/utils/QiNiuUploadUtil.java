@@ -15,7 +15,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-@Component
 public class QiNiuUploadUtil {
     //设置ak和sk
     private static String ACCESS_KEY = Const.QiNiu.accessKey;

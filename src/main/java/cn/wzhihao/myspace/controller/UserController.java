@@ -28,15 +28,6 @@ public class UserController {
         return iUserService.login(email, password);
     }
 
-//    //退出登录
-//    @VerifyToken
-//    @ResponseBody
-//    @GetMapping("/logout")
-//    public Result logout(HttpSession session) {
-//        session.removeAttribute(Const.CURRENT_USER);
-//        return Result.Success("退出成功");
-//    }
-
     //注册
     @PostMapping()
     public Result<String> register(User user) {
