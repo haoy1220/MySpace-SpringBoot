@@ -13,8 +13,6 @@ public class Result<T> {
     private String msg;
     private T data;
 
-
-
     @JsonIgnore
     //使之不在json序列化结果当中
     public boolean isSuccess() {
