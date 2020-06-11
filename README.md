@@ -1,15 +1,18 @@
 # 毕业设计项目
 
-### Git操作流程
+### 涉及技术
 
-1. git init
-2. git remote add origin https://github.com/haoy1220/MySpace.git
-3. git add .
-4. git commit -m "first commit"
-5. git push -u origin master
-6. git checkout -b dev1.0 origin/master
-7. git branch
-8. git push origin HEAD -u
+1.使用JWT实现用户Token认证，保证了系统的权限安全；
+
+2.采用RESTful风格接口，统一全局异常处理和规范的响应格式，代码结构清晰；
+
+3.使用AOP技术对Controller层和Mybatis层进行日志打印，快速定位系统错误；
+
+4.对接七牛云服务器接口，方便用户快速上传图片；
+
+5.使用Quartz框架进行作业调度，结合mail邮箱工具，实现备忘录的定时邮件提醒；
+
+6.使用JUnit进行单元测试，Nginx进行请求转发。
 
 ### 后端功能介绍
 
