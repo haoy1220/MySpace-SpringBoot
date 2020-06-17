@@ -4,8 +4,6 @@ import lombok.Data;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
-import java.util.List;
 
 @Table(name = "myspace_project")
 @Data

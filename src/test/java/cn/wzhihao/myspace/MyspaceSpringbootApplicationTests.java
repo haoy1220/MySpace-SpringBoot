@@ -1,5 +1,6 @@
 package cn.wzhihao.myspace;
 
+import cn.wzhihao.myspace.utils.MD5Util;
 import lombok.var;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +20,14 @@ class MyspaceSpringbootApplicationTests {
         System.out.println(date.getMonth());
         LinkedList linkedList = new LinkedList();
         HashSet set = new HashSet();
+
+
+    }
+
+    @Test
+    void testMD5() {
+
+        MD5Util.MD5EncodeUtf8("123456");
 
 
     }
